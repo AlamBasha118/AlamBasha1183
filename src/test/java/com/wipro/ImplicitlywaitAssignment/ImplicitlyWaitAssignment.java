@@ -1,6 +1,12 @@
 package com.wipro.ImplicitlywaitAssignment;
 
+import java.io.File;
+import java.time.Duration;
+import java.util.concurrent.TimeUnit;
+
 import org.openqa.selenium.By;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
@@ -8,10 +14,12 @@ public class ImplicitlyWaitAssignment {
 
 	public static void main(String[] args) throws Exception {
 		
+		
 		System.setProperty("webdriver.chrome.driver", "D:\\TestNG Onwards\\ImplicitlywaitAssignment\\Driver\\chromedriver.exe");
 		WebDriver driver =new ChromeDriver();
 		driver.get("https://www.spicejet.com/");
 		driver.manage().window().maximize();
+		driver.manage().timeouts().implicitlyWait(20,TimeUnit.SECONDS);
 		
 		driver.findElement(By.xpath("//input[@data-focusvisible-polyfill='true']")).sendKeys("Del");
 		driver.findElement(By.xpath("//input[@data-focusvisible-polyfill='true']")).sendKeys("Beng");
@@ -30,6 +38,11 @@ public class ImplicitlyWaitAssignment {
 		Thread.sleep(5000);
 		driver.findElement(By.xpath("//*[name()='rect' and contains(@width,'100%')]")).click();
 		driver.findElement(By.xpath("//div[@class='css-1dbjc4n r-1awozwy r-z2wwpe r-1loqt21 r-18u37iz r-1777fci r-d9fdf6 r-1w50u8q r-ah5dr5 r-1otgn73']")).click();
+		
+		TakesScreenshot ts=(TakesScreenshot)driver;
+		File src=ts.getScreenshotAs(OutputType.FILE);
+		File file=new File("D:\\TestNG Onwards\\ImplicitlywaitAssignment\\ScreenShot\\sr.png");
+		FileUtils.copyfile(src, file);
 		
 		driver.quit();
 	}
